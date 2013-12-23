@@ -41,6 +41,12 @@ public class ShipEntity extends Entity {
 			return;
 		}
 		
+		if ((dy < 0) && (y < 10)) {
+			return;
+		}
+		if ((dy > 0) && (y > 580)) {
+			return;
+		}
 		super.move(delta);
 	}
 	

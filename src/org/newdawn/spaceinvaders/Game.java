@@ -57,6 +57,10 @@ public class Game extends Canvas {
 	private boolean leftPressed = false;
 	/** True if the right cursor key is currently pressed */
 	private boolean rightPressed = false;
+	/** True if the up cursor key is currently pressed */
+	private boolean upPressed = false;
+	/** True if the down cursor key is currently pressed */
+	private boolean downPressed = false;
 	/** True if we are firing */
 	private boolean firePressed = false;
 	/** True if game logic needs to be applied this loop, normally as a result of a game event */
@@ -124,6 +128,8 @@ public class Game extends Canvas {
 		// blank out any keyboard settings we might currently have
 		leftPressed = false;
 		rightPressed = false;
+		upPressed = false;
+		downPressed = false;
 		firePressed = false;
 	}
 	
@@ -322,6 +328,14 @@ public class Game extends Canvas {
 				ship.setHorizontalMovement(moveSpeed);
 			}
 			
+			ship.setVerticalMovement(0);
+			
+			if ((upPressed) && (!downPressed)) {
+				ship.setVerticalMovement(-moveSpeed);
+			} else if ((downPressed) && (!upPressed)) {
+				ship.setVerticalMovement(moveSpeed);
+			}
+			
 			// if we're pressing fire, attempt to fire
 			if (firePressed) {
 				tryToFire();
@@ -371,6 +385,12 @@ public class Game extends Canvas {
 			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 				rightPressed = true;
 			}
+			if (e.getKeyCode() == KeyEvent.VK_UP) {
+				upPressed = true;
+			}
+			if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+				downPressed = true;
+			}
 			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 				firePressed = true;
 			}
@@ -393,6 +413,12 @@ public class Game extends Canvas {
 			}
 			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 				rightPressed = false;
+			}
+			if (e.getKeyCode() == KeyEvent.VK_UP) {
+				upPressed = false;
+			}
+			if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+				downPressed = false;
 			}
 			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 				firePressed = false;
